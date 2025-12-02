@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://ln8u12ni037b"]
 
-[ext_resource type="Script" uid="uid://ccxc1104wpnq1" path="res://repositories/script-panel-plus/addons/script_panel_plus/script_panel/script_panel.gd" id="1_txvpw"]
-[ext_resource type="Script" uid="uid://crsnekm1hqts7" path="res://repositories/script-panel-plus/addons/script_panel_plus/script_panel/script_list.gd" id="2_porne"]
+[ext_resource type="Script" uid="uid://ccxc1104wpnq1" path="res://addons/script_panel_plus/script_panel/script_panel.gd" id="1_b1kur"]
+[ext_resource type="Script" uid="uid://crsnekm1hqts7" path="res://addons/script_panel_plus/script_panel/script_list.gd" id="2_g67jx"]
 
 [sub_resource type="Image" id="Image_xonp4"]
 data = {
@@ -54,7 +54,7 @@ offset_right = 262.0
 grow_vertical = 2
 size_flags_vertical = 3
 alignment = 2
-script = ExtResource("1_txvpw")
+script = ExtResource("1_b1kur")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 clip_contents = true
@@ -134,7 +134,7 @@ allow_reselect = true
 max_text_lines = 2
 max_columns = 0
 same_column_width = true
-script = ExtResource("2_porne")
+script = ExtResource("2_g67jx")
 
 [node name="PopupMenu" type="PopupMenu" parent="VBoxContainer/VSplitContainer/ScriptList"]
 allow_search = false
