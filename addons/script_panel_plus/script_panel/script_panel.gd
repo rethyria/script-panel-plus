@@ -39,7 +39,7 @@ var scripts: Array[ScriptItem] = []
 var docs:    Array[ScriptItem] = []
 var files:   Array[ScriptItem] = []
 var favs:    Array[ScriptItem] = []
-var tests:    Array[ScriptItem] = []
+var tests:   Array[ScriptItem] = []
 
 ## Custom Data
 var errors: = []
@@ -212,7 +212,7 @@ func check_not_saved() -> void:
 
 func check_for_script_change() -> void:
 #	if get_current_script_array().is_empty(): return
-	
+
 	if not script_list.is_anything_selected(): reselect_current_script()
 	
 	var selected_item := engine_script_list.get_selected_items()[0]
@@ -226,7 +226,7 @@ func check_for_script_change() -> void:
 	if selected_script: # already exists
 		current_script = selected_script
 		reselect_current_script()
-	else: # nothing is selected = new script
+	elif selected_script in all: # nothing is selected = new script (extra check in case selected script was closed)
 		if engine_script_list.item_count > 0:
 			add_script_item_by_engine_index(selected_item)
 			current_script = get_script_from_engine_list_index(selected_item)
@@ -247,7 +247,7 @@ func check_for_script_change() -> void:
 	if prev_script:
 		_on_script_change(prev_script)
 		current_script_changed.emit()
-
+	
 func check_for_missing_scripts() -> void:
 	var __count := -1
 	if __count != engine_script_list.item_count:
@@ -951,7 +951,7 @@ func delete_script_item_by_index(index: int) -> void:
 func delete_script_item(script_item: ScriptItem) -> void:
 	if script_item == current_script:
 		current_script = null
-	
+		
 	var script_index := list_get_scripts_index(script_item)
 	if script_index == -1: return
 	if script_index < script_list.item_count: 
@@ -1115,7 +1115,6 @@ func list_close_docs() -> void:
 
 func list_close_all() -> void:
 	if settings["close_favourites_only_manually"]:
-		print(1)
 		list_close_all_non_favs()
 		return
 	
@@ -1148,6 +1147,7 @@ func list_update() -> void:
 	const newline := "\n"
 	
 	for object in get_current_script_array():
+		
 		if search_line.text.is_empty() or \
 		search_line.text.contains(object.text) or object.text.contains(search_line.text):
 			list_add_item(object)
@@ -1855,6 +1855,7 @@ func _on_popup_action(id: int) -> void:
 		else:
 			tests.append(script_item)
 			sort_tab("tests")
+
 	
 	if id == 5: # CLOSE ALL
 		list_close_all()
