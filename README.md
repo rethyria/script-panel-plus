@@ -90,4 +90,5 @@ You can turn on automatic **Pascal/Snake** case styling for items in the setting
 # Donations 💰
 
 If you'd like to donate to the original creator, see the original repo here - https://github.com/Loregret/script-panel-plus
+
 But removing this section so it doesn't look like I'm asking for donations.
