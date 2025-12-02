@@ -39,7 +39,7 @@ var scripts: Array[ScriptItem] = []
 var docs:    Array[ScriptItem] = []
 var files:   Array[ScriptItem] = []
 var favs:    Array[ScriptItem] = []
-var tests:   Array[ScriptItem] = []
+var tests:    Array[ScriptItem] = []
 
 ## Custom Data
 var errors: = []
@@ -212,7 +212,7 @@ func check_not_saved() -> void:
 
 func check_for_script_change() -> void:
 #	if get_current_script_array().is_empty(): return
-
+	
 	if not script_list.is_anything_selected(): reselect_current_script()
 	
 	var selected_item := engine_script_list.get_selected_items()[0]
@@ -226,7 +226,7 @@ func check_for_script_change() -> void:
 	if selected_script: # already exists
 		current_script = selected_script
 		reselect_current_script()
-	elif selected_script in all: # nothing is selected = new script (extra check in case selected script was closed)
+	else: # nothing is selected = new script
 		if engine_script_list.item_count > 0:
 			add_script_item_by_engine_index(selected_item)
 			current_script = get_script_from_engine_list_index(selected_item)
@@ -247,7 +247,7 @@ func check_for_script_change() -> void:
 	if prev_script:
 		_on_script_change(prev_script)
 		current_script_changed.emit()
-	
+
 func check_for_missing_scripts() -> void:
 	var __count := -1
 	if __count != engine_script_list.item_count:
@@ -449,7 +449,7 @@ func _on_item_click(index: int, at_position: Vector2, button_index: int) -> void
 		delete_script_item_by_index(index)
 
 func _on_item_selected(index: int) -> void:
-	var _script = script_list.get_item_metadata(index) as ScriptItem
+	var _script := script_list.get_item_metadata(index)
 	list_select_script(_script, index)
 	
 	if settings["save_scripts_custom_name"]:
@@ -528,19 +528,19 @@ func get_line_label(script_editor: ScriptEditorBase)  -> Label:
 
 func engine_list_close_current() -> void:
 	var _top_bar:Control = plugin_reference.top_bar
-	if _top_bar:_top_bar.get_child(0).get_popup().emit_signal("id_pressed", 10)
+	if _top_bar:_top_bar.get_child(0).get_popup().emit_signal("id_pressed", 15)
 
 func engine_list_close_docs() -> void:
 	var _top_bar:Control = plugin_reference.top_bar
-	if _top_bar:_top_bar.get_child(0).get_popup().emit_signal("id_pressed", 11)
+	if _top_bar:_top_bar.get_child(0).get_popup().emit_signal("id_pressed", 19)
 
 func engine_list_close_all() -> void:
 	var _top_bar:Control = plugin_reference.top_bar
-	if _top_bar:_top_bar.get_child(0).get_popup().emit_signal("id_pressed", 12)
+	if _top_bar:_top_bar.get_child(0).get_popup().emit_signal("id_pressed", 16)
 
 func engine_list_close_other() -> void:
 	var _top_bar:Control = plugin_reference.top_bar
-	if _top_bar:_top_bar.get_child(0).get_popup().emit_signal("id_pressed", 13)
+	if _top_bar:_top_bar.get_child(0).get_popup().emit_signal("id_pressed", 17)
 
 
 ## SCRIPT EDITOR
@@ -747,8 +747,8 @@ func sort_type_by_date_reversed(a: ScriptItem, b: ScriptItem) -> bool:
 	return false
 
 func sort_by_date(a: ScriptItem, b: ScriptItem)  -> bool:
-	var a_date = a.get("last_time_edited")
-	var b_date = b.get("last_time_edited")
+	var a_date := a.get("last_time_edited")
+	var b_date := b.get("last_time_edited")
 	
 	if a_date == b_date: return sort_alphabetical(a, b)
 	
@@ -951,7 +951,7 @@ func delete_script_item_by_index(index: int) -> void:
 func delete_script_item(script_item: ScriptItem) -> void:
 	if script_item == current_script:
 		current_script = null
-		
+	
 	var script_index := list_get_scripts_index(script_item)
 	if script_index == -1: return
 	if script_index < script_list.item_count: 
@@ -1115,6 +1115,7 @@ func list_close_docs() -> void:
 
 func list_close_all() -> void:
 	if settings["close_favourites_only_manually"]:
+		print(1)
 		list_close_all_non_favs()
 		return
 	
@@ -1147,7 +1148,6 @@ func list_update() -> void:
 	const newline := "\n"
 	
 	for object in get_current_script_array():
-		
 		if search_line.text.is_empty() or \
 		search_line.text.contains(object.text) or object.text.contains(search_line.text):
 			list_add_item(object)
@@ -1382,7 +1382,7 @@ func _on_method_search_submited() -> void:
 	methods_list_update()
 
 func _on_method_selected(idx: int) -> void:
-	var index = method_list.get_item_metadata(idx)
+	var index := method_list.get_item_metadata(idx)
 	
 	if current_script.type == "docs":
 		plugin_reference.engine_docs_headers_list.item_selected.emit(index)
@@ -1401,8 +1401,8 @@ func _on_method_search_button_pressed(id: int) -> void:
 ## SAVE
 
 func get_save_filepath() -> String:
-	var save_path = settings.get("save_path", "")
-	var save_name = settings.get("save_name", "")
+	var save_path := settings.get("save_path", "")
+	var save_name := settings.get("save_name", "")
 	var result := (save_path.path_join(save_name)) as String
 	var dir := DirAccess.open(save_path)
 	
@@ -1526,7 +1526,7 @@ func get_current_plugin_version() -> String:
 	for section in config.get_sections():
 		for key in config.get_section_keys(section):
 			if key == 'version':
-				var version = config.get_value(section, key)
+				var version := config.get_value(section, key)
 				result = version
 	
 	return result
@@ -1855,7 +1855,6 @@ func _on_popup_action(id: int) -> void:
 		else:
 			tests.append(script_item)
 			sort_tab("tests")
-
 	
 	if id == 5: # CLOSE ALL
 		list_close_all()
