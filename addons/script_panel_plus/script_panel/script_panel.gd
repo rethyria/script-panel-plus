@@ -449,7 +449,7 @@ func _on_item_click(index: int, at_position: Vector2, button_index: int) -> void
 		delete_script_item_by_index(index)
 
 func _on_item_selected(index: int) -> void:
-	var _script := script_list.get_item_metadata(index)
+	var _script = script_list.get_item_metadata(index) as ScriptItem
 	list_select_script(_script, index)
 	
 	if settings["save_scripts_custom_name"]:
@@ -747,8 +747,8 @@ func sort_type_by_date_reversed(a: ScriptItem, b: ScriptItem) -> bool:
 	return false
 
 func sort_by_date(a: ScriptItem, b: ScriptItem)  -> bool:
-	var a_date := a.get("last_time_edited")
-	var b_date := b.get("last_time_edited")
+	var a_date = a.get("last_time_edited")
+	var b_date = b.get("last_time_edited")
 	
 	if a_date == b_date: return sort_alphabetical(a, b)
 	
@@ -1382,7 +1382,7 @@ func _on_method_search_submited() -> void:
 	methods_list_update()
 
 func _on_method_selected(idx: int) -> void:
-	var index := method_list.get_item_metadata(idx)
+	var index = method_list.get_item_metadata(idx)
 	
 	if current_script.type == "docs":
 		plugin_reference.engine_docs_headers_list.item_selected.emit(index)
@@ -1401,8 +1401,8 @@ func _on_method_search_button_pressed(id: int) -> void:
 ## SAVE
 
 func get_save_filepath() -> String:
-	var save_path := settings.get("save_path", "")
-	var save_name := settings.get("save_name", "")
+	var save_path = settings.get("save_path", "")
+	var save_name = settings.get("save_name", "")
 	var result := (save_path.path_join(save_name)) as String
 	var dir := DirAccess.open(save_path)
 	
@@ -1526,7 +1526,7 @@ func get_current_plugin_version() -> String:
 	for section in config.get_sections():
 		for key in config.get_section_keys(section):
 			if key == 'version':
-				var version := config.get_value(section, key)
+				var version = config.get_value(section, key)
 				result = version
 	
 	return result
