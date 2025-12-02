@@ -89,8 +89,5 @@ You can turn on automatic **Pascal/Snake** case styling for items in the setting
 
 # Donations 💰
 
-| Type                                                                           | Address                                                                                           |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
-| <img width="16" src="addons/script_panel_plus/assets/misc/btc.png"/> Bitcoin:  | `bc1qp4w6eelpeu3wfl06a6x0ff8965m56laxfrz0h6`                                                      |
-| <img width="16" src="addons/script_panel_plus/assets/misc/xmr.png"/> Monero:   | `82UM6ztZiCK3wzp1T16WHQ78wm7b2RXzbbStFY75AUDGh2FeXnV5BVMdmQgeL4EyWEaQHVpF6gR244RPGkjsg2hk9dnSQiN` |
-| <img width="16" src="addons/script_panel_plus/assets/misc/eth.png"/> Ethereum: | `0xcF205d3A5459Aa5dD54376ab878EFFBa18c8934b`                                                      |
+If you'd like to donate to the original creator, see the original repo here - https://github.com/Loregret/script-panel-plus
+But removing this section so it doesn't look like I'm asking for donations.
